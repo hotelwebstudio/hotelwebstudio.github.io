@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Web Studio — High-Converting Websites for Hotel Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --cream: #f5f0e8;
+    --gold: #b8935a;
+    --gold-light: #d4ad75;
+    --warm-white: #faf8f4;
+    --muted: #7a7060;
+    --border: rgba(184,147,90,0.2);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.4rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.85rem; font-weight: 400;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--ink) !important; color: var(--cream) !important;
+    padding: 0.6rem 1.4rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    font-size: 0.78rem !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--ink) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 40%, rgba(184,147,90,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-text {
+    padding: 6rem 4rem 4rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block; width: 2rem; height: 1px;
+    background: var(--gold); vertical-align: middle; margin-right: 0.8rem;
+  }
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.8rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+  .hero-headline em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 1rem; font-weight: 300;
+    line-height: 1.75; color: var(--muted);
+    max-width: 42ch;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+  .hero-sub strong { color: var(--ink); font-weight: 500; }
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--ink); color: var(--cream);
+    padding: 1rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.25s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '→';
+    margin-left: 0.6rem;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold); color: var(--ink); }
+  .btn-primary:hover::after { transform: translateX(4px); }
+  .btn-ghost {
+    color: var(--muted);
+    font-size: 0.82rem; font-weight: 400;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--ink); border-color: var(--gold); }
+  .hero-microcopy {
+    margin-top: 1.2rem;
+    font-size: 0.75rem; color: var(--muted); font-style: italic;
+    opacity: 0; animation: fadeUp 0.8s ease 1s forwards;
+  }
+  .hero-visual {
+    background: var(--ink);
+    position: relative; overflow: hidden;
+    opacity: 0; animation: fadeIn 1.2s ease 0.4s forwards;
+  }
+  .hero-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(184,147,90,0.15) 0%, transparent 50%);
+  }
+  .hero-mockup {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1.5rem; padding: 3rem;
+  }
+  .mockup-screen {
+    background: var(--warm-white);
+    width: 85%; border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+  .mockup-bar {
+    background: #e0dbd2; padding: 0.6rem 1rem;
+    display: flex; gap: 0.4rem; align-items: center;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .mockup-content { padding: 1.5rem; }
+  .mockup-hero-strip {
+    background: linear-gradient(90deg, var(--ink), #2a2420);
+    height: 80px; border-radius: 2px; margin-bottom: 0.8rem;
+    display: flex; align-items: center; padding: 0 1rem;
+  }
+  .mockup-hero-strip span {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold); font-size: 0.75rem; font-style: italic;
+  }
+  .mockup-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .mockup-block {
+    background: var(--cream); height: 40px; border-radius: 2px; flex: 1;
+  }
+  .mockup-block.wide { flex: 2; }
+  .mockup-block.tall { height: 60px; }
+  .hero-stat-strip {
+    display: flex; gap: 2.5rem;
+    padding: 2rem 4rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.3);
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; color: var(--gold); font-weight: 600;
+    display: block;
+  }
+  .hero-stat-label { font-size: 0.7rem; color: rgba(245,240,232,0.6); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem; display: block;
+  }
+  .section-label::before {
+    content: ''; display: inline-block; width: 1.5rem; height: 1px;
+    background: var(--gold); vertical-align: middle; margin-right: 0.7rem;
+  }
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; line-height: 1.2;
+  }
+  .section-heading em { font-style: italic; color: var(--gold); }
+
+  /* BENEFITS */
+  .benefits { background: var(--ink); color: var(--cream); }
+  .benefits .section-heading { color: var(--cream); }
+  .benefits-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; margin-top: 4rem;
+    border-left: 1px solid rgba(255,255,255,0.06);
+  }
+  .benefit-card {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .benefit-card:hover { background: rgba(184,147,90,0.07); }
+  .benefit-icon { font-size: 1.8rem; margin-bottom: 1.2rem; display: block; }
+  .benefit-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 400;
+    color: var(--gold); margin-bottom: 0.7rem;
+  }
+  .benefit-desc { font-size: 0.85rem; line-height: 1.7; color: rgba(245,240,232,0.65); }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px; margin-top: 4rem;
+    background: var(--border);
+  }
+  .service-card {
+    background: var(--warm-white);
+    padding: 3rem;
+    transition: background 0.3s;
+  }
+  .service-card:hover { background: var(--cream); }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300;
+    color: rgba(184,147,90,0.2); line-height: 1;
+    margin-bottom: 1.2rem;
+  }
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+  .service-desc { font-size: 0.88rem; line-height: 1.75; color: var(--muted); }
+
+  /* PORTFOLIO */
+  .portfolio { background: var(--cream); }
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 4rem;
+  }
+  .portfolio-card {
+    background: var(--ink);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+  .portfolio-card:first-child { grid-column: span 2; }
+  .portfolio-thumb {
+    height: 240px;
+    background: linear-gradient(135deg, #1a1612, #2d2520);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+  }
+  .portfolio-card:first-child .portfolio-thumb { height: 320px; }
+  .portfolio-thumb-inner {
+    width: 80%; background: var(--warm-white);
+    padding: 1rem; transform: perspective(600px) rotateY(-5deg);
+    box-shadow: 20px 20px 50px rgba(0,0,0,0.5);
+    transition: transform 0.4s;
+  }
+  .portfolio-card:hover .portfolio-thumb-inner {
+    transform: perspective(600px) rotateY(0deg) scale(1.02);
+  }
+  .portfolio-thumb-bar {
+    background: var(--ink); padding: 0.4rem 0.7rem;
+    display: flex; gap: 0.3rem; align-items: center;
+  }
+  .portfolio-thumb-content { padding: 0.8rem; }
+  .thumb-line {
+    height: 8px; background: var(--cream); border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .thumb-line.short { width: 60%; }
+  .thumb-line.gold { background: rgba(184,147,90,0.4); }
+  .thumb-grid { display: flex; gap: 6px; margin-top: 8px; }
+  .thumb-block { flex: 1; height: 32px; background: var(--cream); border-radius: 2px; }
+  .portfolio-info { padding: 1.5rem 1.5rem; color: var(--cream); }
+  .portfolio-tag {
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.4rem;
+  }
+  .portfolio-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 300;
+  }
+  .portfolio-metric {
+    font-size: 0.78rem; color: rgba(245,240,232,0.5);
+    margin-top: 0.3rem;
+  }
+  .portfolio-cta {
+    display: flex; justify-content: center; margin-top: 3rem;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; margin-top: 4rem;
+  }
+  .testimonial-card {
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .testimonial-card::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem; color: var(--gold);
+    opacity: 0.15; line-height: 0.5;
+    position: absolute; top: 1.5rem; left: 1.5rem;
+  }
+  .testimonial-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; }
+  .testimonial-text {
+    font-size: 0.92rem; line-height: 1.8; color: var(--muted);
+    font-style: italic; margin-bottom: 1.5rem;
+  }
+  .testimonial-author { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; }
+  .testimonial-company { font-size: 0.75rem; color: var(--gold); margin-top: 0.2rem; }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: var(--ink);
+    text-align: center; color: var(--cream);
+    position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(184,147,90,0.12) 0%, transparent 60%);
+  }
+  .final-cta-content { position: relative; z-index: 1; }
+  .final-cta .section-heading { color: var(--cream); font-size: clamp(2.5rem, 5vw, 4rem); }
+  .final-cta-sub { font-size: 1rem; color: rgba(245,240,232,0.6); margin: 1.5rem auto 3rem; max-width: 50ch; line-height: 1.7; }
+  .final-cta-actions { display: flex; gap: 1.5rem; justify-content: center; align-items: center; }
+  .btn-gold {
+    background: var(--gold); color: var(--ink);
+    padding: 1.1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.25s;
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-outline {
+    border: 1px solid rgba(245,240,232,0.3); color: var(--cream);
+    padding: 1.1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; font-weight: 400;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.25s, color 0.25s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .final-microcopy { font-size: 0.75rem; color: rgba(245,240,232,0.35); margin-top: 1.5rem; font-style: italic; }
+
+  /* FOOTER */
+  footer {
+    background: #080807; color: rgba(245,240,232,0.4);
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1.5rem;
+    font-size: 0.8rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--cream);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    color: rgba(245,240,232,0.4); text-decoration: none;
+    font-size: 0.78rem; letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { color: rgba(245,240,232,0.25); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Divider */
+  .gold-line { width: 3rem; height: 1px; background: var(--gold); margin: 0 0 1.5rem; }
+  
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    section { padding: 5rem 2rem; }
+    .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid, .portfolio-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .portfolio-card:first-child { grid-column: 1; }
+    .final-cta-actions { flex-direction: column; }
+    footer { padding: 2rem; }
+    .footer-links { flex-wrap: wrap; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="logo">HotelWebStudio</a>
+  <div class="nav-links">
+    <a href="#benefits">Benefits</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact" class="nav-cta">Get Consultation</a>
+  </div>
+</nav>
+
+<!-- SECTION 1: HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-eyebrow">Hotel Management Web Design</span>
+    <h1 class="hero-headline">
+      High-Converting Websites That Help Hotels <em>Attract More Clients</em> &amp; Boost Revenue
+    </h1>
+    <p class="hero-sub">
+      Stop losing potential partners and investors. I build professional websites that <strong>increase bookings, streamline operations, and showcase your hotels with impact</strong>.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request Your Free Consultation</a>
+      <a href="#portfolio" class="btn-ghost">View Our Work</a>
+    </div>
+    <p class="hero-microcopy">No commitment. See how your hotel brand can grow online.</p>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-mockup">
+      <div class="mockup-screen">
+        <div class="mockup-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+        </div>
+        <div class="mockup-content">
+          <div class="mockup-hero-strip"><span>The Grand Palais — Est. 1924</span></div>
+          <div class="mockup-row">
+            <div class="mockup-block wide"></div>
+            <div class="mockup-block"></div>
+          </div>
+          <div class="mockup-row">
+            <div class="mockup-block"></div>
+            <div class="mockup-block"></div>
+            <div class="mockup-block"></div>
+          </div>
+          <div class="mockup-row">
+            <div class="mockup-block wide tall"></div>
+            <div class="mockup-block tall"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stat-strip">
+      <div class="hero-stat">
+        <span class="hero-stat-num">3×</span>
+        <span class="hero-stat-label">More Inquiries</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">48h</span>
+        <span class="hero-stat-label">Fast Launch</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">100%</span>
+        <span class="hero-stat-label">Custom Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: BENEFITS -->
+<section class="benefits" id="benefits">
+  <span class="section-label reveal">What You Gain</span>
+  <h2 class="section-heading reveal reveal-delay-1">Why Hotel Management Companies <em>Choose Our Websites</em></h2>
+  <div class="benefits-grid">
+    <div class="benefit-card reveal reveal-delay-1">
+      <span class="benefit-icon">📈</span>
+      <div class="benefit-title">Increase Sales</div>
+      <p class="benefit-desc">Persuasive, user-friendly design converts visitors into clients and investors at a higher rate.</p>
+    </div>
+    <div class="benefit-card reveal reveal-delay-2">
+      <span class="benefit-icon">⚡</span>
+      <div class="benefit-title">Save Time</div>
+      <p class="benefit-desc">Launch fast without compromising quality. From brief to live site in days, not months.</p>
+    </div>
+    <div class="benefit-card reveal reveal-delay-3">
+      <span class="benefit-icon">💎</span>
+      <div class="benefit-title">Reduce Costs</div>
+      <p class="benefit-desc">Premium results without hiring a full-time development team or paying agency retainers.</p>
+    </div>
+    <div class="benefit-card reveal reveal-delay-4">
+      <span class="benefit-icon">🏨</span>
+      <div class="benefit-title">Showcase Portfolio</div>
+      <p class="benefit-desc">Highlight hotels, services, and success stories in a way that commands attention.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <span class="benefit-icon">📊</span>
+      <div class="benefit-title">Data-Driven</div>
+      <p class="benefit-desc">Every design decision is optimized for conversions, SEO, and measurable ROI.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: SERVICES -->
+<section id="services">
+  <span class="section-label reveal">What We Offer</span>
+  <h2 class="section-heading reveal reveal-delay-1">Tailored Web Solutions for <em>Hotel Management</em></h2>
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-num">01</div>
+      <div class="service-title">Custom Landing Pages</div>
+      <p class="service-desc">Designed specifically to showcase your properties and services, turning visitors into qualified leads and long-term partners.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-num">02</div>
+      <div class="service-title">Portfolio Showcases</div>
+      <p class="service-desc">Highlight your hotels, amenities, and success stories with immersive galleries and compelling storytelling that impress investors.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-num">03</div>
+      <div class="service-title">SEO &amp; Analytics</div>
+      <p class="service-desc">Ensure your website attracts the right visitors and converts them — with full analytics setup and ongoing optimisation.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-4">
+      <div class="service-num">04</div>
+      <div class="service-title">Recurring Support Packages</div>
+      <p class="service-desc">Ongoing updates, maintenance, and digital marketing support so your site grows with your business month after month.</p>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:center;margin-top:3rem;" class="reveal">
+    <a href="#contact" class="btn-primary">See How We Can Transform Your Website</a>
+  </div>
+</section>
+
+<!-- SECTION 4: PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <span class="section-label reveal">Our Work</span>
+  <h2 class="section-heading reveal reveal-delay-1">Websites That Deliver <em>Real Results</em></h2>
+  <div class="portfolio-grid">
+    <div class="portfolio-card reveal reveal-delay-1">
+      <div class="portfolio-thumb">
+        <div class="portfolio-thumb-inner">
+          <div class="portfolio-thumb-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+          </div>
+          <div class="portfolio-thumb-content">
+            <div class="thumb-line gold" style="margin-bottom:10px; height:12px; width:50%;"></div>
+            <div class="thumb-line" style="width:80%"></div>
+            <div class="thumb-line short"></div>
+            <div class="thumb-grid">
+              <div class="thumb-block" style="height:50px;background:var(--cream)"></div>
+              <div class="thumb-block" style="height:50px;background:var(--cream)"></div>
+              <div class="thumb-block" style="height:50px;background:var(--cream)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Luxury Collection</div>
+        <div class="portfolio-metric">↑ 3× investor inquiries in 2 months</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal reveal-delay-2">
+      <div class="portfolio-thumb">
+        <div class="portfolio-thumb-inner">
+          <div class="portfolio-thumb-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+          </div>
+          <div class="portfolio-thumb-content">
+            <div class="thumb-line" style="width:70%"></div>
+            <div class="thumb-line short gold"></div>
+            <div class="thumb-block" style="height:45px;margin-top:8px;background:var(--cream)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Boutique Resorts</div>
+        <div class="portfolio-metric">↑ 58% lead generation increase</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal reveal-delay-3" style="grid-column:1 / -1; display:flex;">
+      <div class="portfolio-thumb" style="flex:1;height:auto;min-height:180px;">
+        <div class="portfolio-thumb-inner" style="width:60%;">
+          <div class="portfolio-thumb-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+          </div>
+          <div class="portfolio-thumb-content">
+            <div class="thumb-line" style="width:90%"></div>
+            <div class="thumb-line short"></div>
+            <div class="thumb-grid">
+              <div class="thumb-block"></div><div class="thumb-block"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-info" style="display:flex;flex-direction:column;justify-content:center;flex:0 0 280px;">
+        <div class="portfolio-tag">Portfolio Showcase</div>
+        <div class="portfolio-metric">↑ 40% reduction in sales cycle time</div>
+      </div>
+    </div>
+  </div>
+  <div class="portfolio-cta reveal">
+    <a href="#contact" class="btn-primary">Request a Free Demo of Our Work</a>
+  </div>
+</section>
+
+<!-- SECTION 5: TESTIMONIALS -->
+<section id="testimonials">
+  <span class="section-label reveal">Social Proof</span>
+  <h2 class="section-heading reveal reveal-delay-1">Trusted by Hotel Management Companies <em>Worldwide</em></h2>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal reveal-delay-1">
+      <p class="testimonial-text">Our new website helped us attract 3× more investor inquiries in just two months. The ROI was immediate and measurable.</p>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <p class="testimonial-text">Highly professional, fast, and conversion-focused. The website transformed our online presence and brought more clients immediately.</p>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-3">
+      <p class="testimonial-text">Finally a designer who understands hotel management. They built something that speaks directly to the investors and operators we want to reach.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: FINAL CTA -->
+<section class="final-cta" id="contact">
+  <div class="final-cta-content">
+    <span class="section-label reveal" style="justify-content:center;display:flex;">Start Today</span>
+    <h2 class="section-heading reveal reveal-delay-1">Ready to Grow Your <em>Hotel Brand Online?</em></h2>
+    <p class="final-cta-sub reveal reveal-delay-2">Book a free, no-commitment consultation. We'll review your current online presence and show you exactly how to start attracting more clients.</p>
+    <div class="final-cta-actions reveal reveal-delay-3">
+      <a href="#" class="btn-gold">Book Your Free Consultation →</a>
+      <a href="#portfolio" class="btn-outline">See Sample Websites</a>
+    </div>
+    <p class="final-microcopy reveal reveal-delay-4">No commitment. Start attracting more clients today.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">HotelWebStudio</a>
+  <span class="footer-copy">© 2026 HotelWebStudio. All rights reserved.</span>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
